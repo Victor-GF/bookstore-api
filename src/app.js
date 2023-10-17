@@ -1,33 +1,34 @@
 import express from "express";
+import connectIntoDatabase from "./config/dbConnect.js";
+import livro from "./models/Livro.js";
 
+// MongoDB connection
+const connection = await connectIntoDatabase();
+
+connection.on("error", (error) => {
+  console.error("Erro de conexão com o banco", error);
+});
+
+connection.once("open", () => {
+  console.log("Conexão com banco estabelecida com sucesso");
+})
+
+// Server setup
 const app = express();
 
 // Middleware
 app.use(express.json());
 
-const livros = [
-  {
-    id: 1,
-    titulo: "O Senhor dos Anéis"
-  },
-  {
-    id: 2,
-    titulo: "O Hobbit"
-  }
-]
-
-function buscaLivro(id) {
-  return livros.findIndex(livro => {
-    return livro.id === Number(id);
-  });
-}
-
+// HTTP requests
 app.get("/", (req, res) => {
   res.status(200).send("Curso Alura Node.js");
 });
 
-app.get("/livros", (req, res) => {
-  res.status(200).json(livros);
+app.get("/livros", async (req, res) => {
+  // Retorna todos os livros
+  const listaLivros = await livro.find({}); 
+
+  res.status(200).json(listaLivros);
 });
 
 app.get("/livros/:id", (req, res) => {
