@@ -15,15 +15,13 @@ To get started with this project, you'll need Node.js installed. Clone the repos
 
 ```bash
 # Clone the repository
-git clone https://github.com/yourusername/LivrariaAPI.git
+git clone https://github.com/Victor-GF/bookstore-api.git
 
 # Navigate to the project folder
-cd LivrariaAPI
+cd bookstore-api
 
 # Install dependencies
 npm install
 
-# Set up environment variables in a .env file
-
 # Start the server
-npm start
+npm run start
