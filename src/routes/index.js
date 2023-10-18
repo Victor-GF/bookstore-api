@@ -1,10 +1,17 @@
 import express from "express";
 import livros from "./livrosRoutes.js";
+import autores from "./autoresRoutes.js"
 
 const routes = (app) => {
   app.route("/").get((req, res) => {res.status(200).send("Curso de Node.js")});
 
-  app.use("/livros", express.json(), livros);
+  app.use(express.json());
+
+  // Setup routes for "livros" collection
+  app.use("/livros", livros);
+
+  // Setup routes for "autores" collection
+  app.use("/autores", autores);
 };
 
 export default routes;
