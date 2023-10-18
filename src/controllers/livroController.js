@@ -1,3 +1,4 @@
+import mongoose from "mongoose";
 import { autor } from "../models/Autor.js";
 import { editora } from "../models/Editora.js";
 import livro from "../models/Livro.js";
@@ -86,6 +87,19 @@ class LivroController {
       res.status(500).json({ message: `${error.message} - FALHA AO EXCLUIR LIVRO` })
     }
   };
+
+  // Retorna livros pelo nome da editora
+  static async listaLivrosEditora(req, res) {
+    const queryEditora = req.query.editora;
+
+    try {
+      const livrosEditora = await livro.find({ "editora.nome": queryEditora });
+      res.status(200).json(livrosEditora);
+    } catch (error) {
+      res.status(500).json({ message: `${error.message} - FALHA NA REQUISIÇÃO DO LIVRO PELA EDITORA` })
+    }
+  };
+
 };
 
 export default LivroController;
