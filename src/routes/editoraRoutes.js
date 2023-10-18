@@ -1,5 +1,5 @@
 import express from "express";
-import EditoraController from "../controllers/editoraController.js"
+import EditoraController from "../controllers/editoraController.js";
 
 const routes = express.Router();
 

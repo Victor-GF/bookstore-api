@@ -9,7 +9,7 @@ connection.on("error", (error) => {
 });
 connection.once("open", () => {
   console.log("Conexão com banco estabelecida com sucesso");
-})
+});
 
 // Server setup
 const app = express();
