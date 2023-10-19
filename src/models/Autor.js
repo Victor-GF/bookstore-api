@@ -1,11 +1,14 @@
 import mongoose from "mongoose";
 
 const autorSchema = new mongoose.Schema({
-  id: { type: mongoose.Schema.Types.ObjectId },
-  nome: { type: String, require: true },
-  nacionalidade: { type: String },
+  _id: mongoose.Schema.Types.ObjectId,
+  nome: { 
+    type: String, 
+    required: [true, "Parâmetro 'nome' é obrigatório"] 
+  },
+  nacionalidade: String,
 }, { versionKey: false });
 
-const autor = mongoose.model("autores", autorSchema);
+const Autor = mongoose.model("autores", autorSchema);
 
-export { autor, autorSchema };
+export { Autor, autorSchema };

@@ -1,10 +1,13 @@
 import mongoose from "mongoose";
 
 const editoraSchema = new mongoose.Schema({
-  id: { type: mongoose.Schema.Types.ObjectId},
-  nome: { type: String, require: true}
+  _id: mongoose.Schema.Types.ObjectId,
+  nome: { 
+    type: String, 
+    required: [true, "Parâmetro 'nome' é obrigatório"]
+  }
 }, { versionKey: false });
 
-const editora = mongoose.model("editoras", editoraSchema);
+const Editora = mongoose.model("editoras", editoraSchema);
 
-export { editora, editoraSchema };
+export { Editora, editoraSchema };

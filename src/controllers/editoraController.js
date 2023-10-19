@@ -1,58 +1,58 @@
-import { editora } from "../models/Editora.js";
+import { Editora } from "../models/Editora.js";
 
 class EditoraController {
 
   // Retorna todas as editoras
-  static async listarEditoras(req, res) {
+  static async listarEditoras(req, res, next) {
     try {
-      const listaEditoras = await editora.find({}); 
+      const listaEditoras = await Editora.find({}); 
       res.status(200).json(listaEditoras);
     } catch (error) {
-      res.status(500).json({ message: `${error.message} - FALHA NA REQUISIÇÃO DAS EDITORAS` });
+      next(error);
     }
   }
 
-  // Retora uma editora pelo id fornecido
-  static async listarEditoraId(req, res) {
+  // Retora uma Editora pelo id fornecido
+  static async listarEditoraId(req, res, next) {
     try {
       const id = req.params.id;
-      const editoraResult = await editora.findById(id); 
+      const editoraResult = await Editora.findById(id); 
       res.status(200).json(editoraResult);
     } catch (error) {
-      res.status(500).json({ message: `${error.message} - FALHA NA REQUISIÇÃO DA EDITORA PELO ID` });
+      next(error);
     }
   }
 
-  // Cadastra uma nova editora e retorna seu valor
-  static async cadastrarEditora(req, res) {
+  // Cadastra uma nova Editora e retorna seu valor
+  static async cadastrarEditora(req, res, next) {
     try {
-      const editoraCriada = await editora.create(req.body);
+      const editoraCriada = await Editora.create(req.body);
       
-      res.status(201).json({ message: "Criado com sucesso", editora: editoraCriada });
+      res.status(201).json({ message: "Criado com sucesso", data: editoraCriada });
     } catch (error) {
-      res.status(500).json({ message: `${error.message} - FALHA AO CADASTRAR EDITORA`});
+      next(error);
     }
   }
 
-  // Atualiza uma editora pelo id fornecido
-  static async atualizarEditora(req, res) {
+  // Atualiza uma Editora pelo id fornecido
+  static async atualizarEditora(req, res, next) {
     try {
       const id = req.params.id;
-      await editora.findByIdAndUpdate(id, req.body); 
+      await Editora.findByIdAndUpdate(id, req.body); 
       res.status(200).json({ message: "Atualizado com sucesso"}); 
     } catch (error) {
-      res.status(500).json({ message: `${error.message} - FALHA AO ATUALIZAR EDITORA` });
+      next(error);
     }
   }
 
-  // Exclui um editora pelo id fornecido
-  static async excluirEditora(req, res) {
+  // Exclui um Editora pelo id fornecido
+  static async excluirEditora(req, res, next) {
     try {
       const id = req.params.id;
-      await editora.findByIdAndDelete(id); 
+      await Editora.findByIdAndDelete(id); 
       res.status(200).json({ message: "Editora excluída com sucesso"}); 
     } catch (error) {
-      res.status(500).json({ message: `${error.message} - FALHA AO EXCLUIR EDITORA` });
+      next(error);
     }
   }
 }
